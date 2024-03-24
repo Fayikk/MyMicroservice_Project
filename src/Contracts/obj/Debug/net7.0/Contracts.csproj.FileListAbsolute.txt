@@ -1,0 +1,11 @@
+C:\MyMicroservice_Project\src\Contracts\bin\Debug\net7.0\Contracts.deps.json
+C:\MyMicroservice_Project\src\Contracts\bin\Debug\net7.0\Contracts.dll
+C:\MyMicroservice_Project\src\Contracts\bin\Debug\net7.0\Contracts.pdb
+C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\Contracts.AssemblyInfoInputs.cache
+C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\Contracts.AssemblyInfo.cs
+C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\Contracts.csproj.CoreCompileInputs.cache
+C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\Contracts.dll
+C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\refint\Contracts.dll
+C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\Contracts.pdb
+C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\ref\Contracts.dll
