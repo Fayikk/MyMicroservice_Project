@@ -45,7 +45,7 @@ public class FilterGameService : IFilterGameService
         {
             listQuery.Add(q=>q.MatchAll());
         }
-
+    //For github push commands
         return await CalculateResultSet(listQuery);
     }
 
