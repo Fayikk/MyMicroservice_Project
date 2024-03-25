@@ -9,3 +9,4 @@ C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\Contracts.dll
 C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\refint\Contracts.dll
 C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\Contracts.pdb
 C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\ref\Contracts.dll
+C:\MyMicroservice_Project\src\Contracts\obj\Debug\net7.0\Contracts.sourcelink.json
