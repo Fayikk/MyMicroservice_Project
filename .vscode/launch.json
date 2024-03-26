@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
 
+
     
         {
             // Use IntelliSense to find out which attributes exist for C# debugging
@@ -15,9 +16,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/FilterService/bin/Debug/net7.0/FilterService.dll",
+            "program": "${workspaceFolder}/src/BasketService/bin/Debug/net7.0/BasketService.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/FilterService",
+            "cwd": "${workspaceFolder}/src/BasketService",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {

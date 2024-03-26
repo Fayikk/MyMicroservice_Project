@@ -41,3 +41,4 @@ C:\MyMicroservice_Project\src\FilterService\bin\Debug\net7.0\MassTransit.RabbitM
 C:\MyMicroservice_Project\src\FilterService\bin\Debug\net7.0\RabbitMQ.Client.dll
 C:\MyMicroservice_Project\src\FilterService\bin\Debug\net7.0\Contracts.dll
 C:\MyMicroservice_Project\src\FilterService\bin\Debug\net7.0\Contracts.pdb
+C:\MyMicroservice_Project\src\FilterService\obj\Debug\net7.0\FilterService.sourcelink.json

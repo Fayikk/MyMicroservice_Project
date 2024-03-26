@@ -23,7 +23,7 @@ public class CustomProfileService : IProfileService
         var existingClaims = await _userManager.GetClaimsAsync(user);
         var claims = new List<Claim>(){
             new Claim("username",user.UserName),
-            new Claim("deneme",user.UserName),
+            new Claim(ClaimTypes.NameIdentifier,user.Id),
         };
 
         context.IssuedClaims.AddRange(claims);
