@@ -10,4 +10,7 @@ public interface IBasketRepository
     Task<ResponseModel<BasketModel>> GetBasketItem(long index);
     Task<ResponseModel<List<BasketModel>>> GetBasketItems();
     Task<ResponseModel<bool>> RemoveBasketItem(long index);
+
+    Task<ResponseModel<bool>> Checkout();
+
 }

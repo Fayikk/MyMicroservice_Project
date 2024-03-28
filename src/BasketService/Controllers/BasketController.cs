@@ -48,4 +48,13 @@ public class BasketController : ControllerBase
         var response = await _basketRepository.RemoveBasketItem(index);
         return Ok(response);
     }
+
+    [HttpPost("Checkout")]
+    [Authorize]
+    public async Task<ActionResult> Checkout()
+    {
+        var response = await _basketRepository.Checkout();
+        return Ok(response);
+    }
+
 }

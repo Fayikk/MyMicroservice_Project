@@ -1,6 +1,9 @@
 using System.Security.Claims;
+using AutoMapper;
 using BasketService.Base;
 using BasketService.Model;
+using Contracts;
+using MassTransit;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
@@ -14,13 +17,17 @@ public class BasketRepository : IBasketRepository
     public string connectionString;
     private readonly IHttpContextAccessor _contextAccessor;
     public string UserId;
-    public BasketRepository(IConfiguration configuration,IHttpContextAccessor contextAccessor)
+    public IPublishEndpoint _publishEndpoint;
+    private readonly IMapper _mapper;
+    public BasketRepository(IConfiguration configuration,IMapper mapper,IHttpContextAccessor contextAccessor,IPublishEndpoint publishEndpoint)
     {
         connectionString = configuration.GetValue<string>("RedisDatabase");
         ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(connectionString);
         _db = redis.GetDatabase();
         _contextAccessor = contextAccessor;
         UserId = contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        _publishEndpoint = publishEndpoint;
+        _mapper = mapper;
     }
 
     public async Task<ResponseModel<bool>> AddBasket(BasketModel model)
@@ -82,5 +89,46 @@ public class BasketRepository : IBasketRepository
         responseModel.isSuccess = true;
         return responseModel;
 
+    }
+
+//   public Guid GameId { get; set; }
+//    public string GameName { get; set; }
+//     public string GameAuthor { get; set; }
+
+//     public decimal Price { get; set; }  
+//     public string GameDescription { get; set; } 
+
+
+
+    public async Task<ResponseModel<bool>> Checkout()
+    {
+        List<Checkout> checkouts = new List<Checkout>();
+        ResponseModel<bool> responseModel = new ResponseModel<bool>();
+         var response = await _db.ListRangeAsync(UserId);
+       foreach (var item in response)
+       {
+           Checkout _checkout = new Checkout();
+            var objResult = JsonConvert.DeserializeObject<BasketModel>(item);
+            _checkout.GameName = objResult.GameName;
+            _checkout.GameAuthor = objResult.GameAuthor;
+            _checkout.GameId = objResult.GameId;
+            _checkout.Price = objResult.Price;
+            _checkout.GameDescription = objResult.GameDescription;
+            _checkout.UserId = Guid.Parse(UserId);
+            checkouts.Add(_checkout);
+       }
+        if (checkouts.Count > 0)
+        {
+            responseModel.isSuccess = true;
+            foreach (var item in checkouts)
+            {
+            await _publishEndpoint.Publish(_mapper.Map<CheckoutBasketModel>(item));
+                
+            }
+
+            return responseModel;
+        }
+            responseModel.isSuccess = false;
+            return responseModel;
     }
 }
