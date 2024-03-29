@@ -1,11 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "7NxOW3ucr7hrNGqQRcOCAXnmawr8yRl1wCoHBRm+hUNVKycOQ/n2mooJzWj3B1ov5nBCYsIEqfJx5M4vBZ0u8Q==",
+  "dgSpecHash": "Hf+t7SiOr6Tlnk+KiGdvr+B3p0ORTZXTc8u40Fm8FsH3XOSk63gINGCtBGU5ch3kBXbqTVvqXDkIQ24t86tx3Q==",
   "success": true,
   "projectFilePath": "C:\\MyMicroservice_Project\\src\\BasketService\\BasketService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fayik\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\fayik\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\fayik\\.nuget\\packages\\google.protobuf\\3.26.0\\google.protobuf.3.26.0.nupkg.sha512",
+    "C:\\Users\\fayik\\.nuget\\packages\\grpc.core.api\\2.59.0\\grpc.core.api.2.59.0.nupkg.sha512",
+    "C:\\Users\\fayik\\.nuget\\packages\\grpc.net.client\\2.59.0\\grpc.net.client.2.59.0.nupkg.sha512",
+    "C:\\Users\\fayik\\.nuget\\packages\\grpc.net.common\\2.59.0\\grpc.net.common.2.59.0.nupkg.sha512",
+    "C:\\Users\\fayik\\.nuget\\packages\\grpc.tools\\2.59.0\\grpc.tools.2.59.0.nupkg.sha512",
     "C:\\Users\\fayik\\.nuget\\packages\\masstransit\\8.0.16\\masstransit.8.0.16.nupkg.sha512",
     "C:\\Users\\fayik\\.nuget\\packages\\masstransit.abstractions\\8.0.16\\masstransit.abstractions.8.0.16.nupkg.sha512",
     "C:\\Users\\fayik\\.nuget\\packages\\masstransit.rabbitmq\\8.0.16\\masstransit.rabbitmq.8.0.16.nupkg.sha512",

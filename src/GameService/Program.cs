@@ -24,6 +24,7 @@ builder.Services.AddScoped<IGameRepository,GameRepository>();
 builder.Services.AddScoped<IFileService,FileService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(opt => {
@@ -52,7 +53,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     options.TokenValidationParameters.ValidateAudience = false;
     options.TokenValidationParameters.NameClaimType = "username";
 });
-
+builder.Services.AddGrpc();
 
 var app = builder.Build();
 
@@ -67,5 +68,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapGrpcService<GrpcGameService>();
 app.Run();

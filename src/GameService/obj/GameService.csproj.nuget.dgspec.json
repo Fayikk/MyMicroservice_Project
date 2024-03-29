@@ -111,6 +111,10 @@
               "target": "Package",
               "version": "[1.26.2, )"
             },
+            "Grpc.AspNetCore": {
+              "target": "Package",
+              "version": "[2.61.0, )"
+            },
             "MassTransit.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.16, )"

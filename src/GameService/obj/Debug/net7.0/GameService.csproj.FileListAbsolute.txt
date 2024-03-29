@@ -61,3 +61,10 @@ C:\MyMicroservice_Project\src\GameService\bin\Debug\net7.0\Microsoft.IdentityMod
 C:\MyMicroservice_Project\src\GameService\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 C:\MyMicroservice_Project\src\GameService\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
 C:\MyMicroservice_Project\src\GameService\obj\Debug\net7.0\GameService.sourcelink.json
+C:\MyMicroservice_Project\src\GameService\bin\Debug\net7.0\Google.Protobuf.dll
+C:\MyMicroservice_Project\src\GameService\bin\Debug\net7.0\Grpc.AspNetCore.Server.dll
+C:\MyMicroservice_Project\src\GameService\bin\Debug\net7.0\Grpc.AspNetCore.Server.ClientFactory.dll
+C:\MyMicroservice_Project\src\GameService\bin\Debug\net7.0\Grpc.Core.Api.dll
+C:\MyMicroservice_Project\src\GameService\bin\Debug\net7.0\Grpc.Net.Client.dll
+C:\MyMicroservice_Project\src\GameService\bin\Debug\net7.0\Grpc.Net.ClientFactory.dll
+C:\MyMicroservice_Project\src\GameService\bin\Debug\net7.0\Grpc.Net.Common.dll

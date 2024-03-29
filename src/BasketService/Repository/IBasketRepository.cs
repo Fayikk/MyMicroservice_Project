@@ -13,4 +13,6 @@ public interface IBasketRepository
 
     Task<ResponseModel<bool>> Checkout();
 
+    Task<ResponseModel<bool>> ImplementCoupon(long index,string couponCode);
+
 }

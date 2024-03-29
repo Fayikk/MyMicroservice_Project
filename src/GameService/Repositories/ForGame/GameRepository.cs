@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using AutoMapper;
 using Contracts;
 using GameService.Base;
@@ -18,13 +19,17 @@ public class GameRepository : IGameRepository
     private IFileService _fileService;
     private BaseResponseModel _responseModel;
     private readonly IPublishEndpoint _publishEndpoint;
-    public GameRepository(GameDatabaseContext context,IMapper mapper,IFileService fileService,BaseResponseModel responseModel,IPublishEndpoint publishEndpoint)
+    private readonly IHttpContextAccessor _httpContextAccesor;
+    private string UserId;
+    public GameRepository(GameDatabaseContext context,IHttpContextAccessor httpContextAccessor,IMapper mapper,IFileService fileService,BaseResponseModel responseModel,IPublishEndpoint publishEndpoint)
     {
         _responseModel = responseModel;
         _context = context;
         _fileService = fileService;
         _mapper = mapper;
         _publishEndpoint = publishEndpoint;
+        _httpContextAccesor = httpContextAccessor;
+         UserId = _httpContextAccesor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
     }
 
     public async Task<BaseResponseModel> CreateGame(GameDTO game)
@@ -34,6 +39,7 @@ public class GameRepository : IGameRepository
             string videoUrl = await _fileService.UploadVideo(game.File);
             var objDTO = _mapper.Map<Game>(game);
             objDTO.VideoUrl = videoUrl;
+            objDTO.UserId = UserId;
             await _context.Games.AddAsync(objDTO);
                 await _publishEndpoint.Publish(_mapper.Map<GameCreated>(objDTO));
 

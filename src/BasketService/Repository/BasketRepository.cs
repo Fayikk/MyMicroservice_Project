@@ -3,6 +3,8 @@ using AutoMapper;
 using BasketService.Base;
 using BasketService.Model;
 using Contracts;
+using DiscountService;
+using DiscountService.Services;
 using MassTransit;
 using Newtonsoft.Json;
 using StackExchange.Redis;
@@ -19,7 +21,8 @@ public class BasketRepository : IBasketRepository
     public string UserId;
     public IPublishEndpoint _publishEndpoint;
     private readonly IMapper _mapper;
-    public BasketRepository(IConfiguration configuration,IMapper mapper,IHttpContextAccessor contextAccessor,IPublishEndpoint publishEndpoint)
+    private readonly GrpcDiscountClient _discountClient;
+    public BasketRepository(IConfiguration configuration,GrpcDiscountClient discountClient,IMapper mapper,IHttpContextAccessor contextAccessor,IPublishEndpoint publishEndpoint)
     {
         connectionString = configuration.GetValue<string>("RedisDatabase");
         ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(connectionString);
@@ -28,6 +31,7 @@ public class BasketRepository : IBasketRepository
         UserId = contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         _publishEndpoint = publishEndpoint;
         _mapper = mapper;
+        _discountClient = discountClient;
     }
 
     public async Task<ResponseModel<bool>> AddBasket(BasketModel model)
@@ -91,14 +95,6 @@ public class BasketRepository : IBasketRepository
 
     }
 
-//   public Guid GameId { get; set; }
-//    public string GameName { get; set; }
-//     public string GameAuthor { get; set; }
-
-//     public decimal Price { get; set; }  
-//     public string GameDescription { get; set; } 
-
-
 
     public async Task<ResponseModel<bool>> Checkout()
     {
@@ -130,5 +126,24 @@ public class BasketRepository : IBasketRepository
         }
             responseModel.isSuccess = false;
             return responseModel;
+    }
+
+    public async Task<ResponseModel<bool>> ImplementCoupon(long index,string couponCode)
+    {
+        ResponseModel<bool> responseModel = new ResponseModel<bool>();
+        var discount = _discountClient.GetDiscount(couponCode);
+
+        if (discount != null)
+        {
+               var response = await _db.ListGetByIndexAsync(UserId,index);
+               var deserializeObj = JsonConvert.DeserializeObject<BasketModel>(response);
+               deserializeObj.Price = deserializeObj.Price - (deserializeObj.Price*discount.DiscountAmount)/100;
+                var SerializeObject = JsonConvert.SerializeObject(deserializeObj);
+               await _db.ListSetByIndexAsync(UserId,index,SerializeObject);
+               responseModel.isSuccess = true;
+               return responseModel;
+        }
+         responseModel.isSuccess = false;
+               return responseModel;
     }
 }

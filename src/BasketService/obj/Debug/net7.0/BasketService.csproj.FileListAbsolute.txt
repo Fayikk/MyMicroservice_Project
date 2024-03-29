@@ -51,3 +51,7 @@ C:\MyMicroservice_Project\src\BasketService\bin\Debug\net7.0\MassTransit.RabbitM
 C:\MyMicroservice_Project\src\BasketService\bin\Debug\net7.0\RabbitMQ.Client.dll
 C:\MyMicroservice_Project\src\BasketService\bin\Debug\net7.0\Contracts.dll
 C:\MyMicroservice_Project\src\BasketService\bin\Debug\net7.0\Contracts.pdb
+C:\MyMicroservice_Project\src\BasketService\bin\Debug\net7.0\Google.Protobuf.dll
+C:\MyMicroservice_Project\src\BasketService\bin\Debug\net7.0\Grpc.Core.Api.dll
+C:\MyMicroservice_Project\src\BasketService\bin\Debug\net7.0\Grpc.Net.Client.dll
+C:\MyMicroservice_Project\src\BasketService\bin\Debug\net7.0\Grpc.Net.Common.dll
