@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres
+    image: postgres:15.6-alpine
     environment:
       - POSTGRES_PASSWORD=Admin
     ports:
@@ -66,6 +66,66 @@ services:
     restart: always
     ports:
       - "1433:1433"
+  identity-svc:
+    image: mymicroservice/identity-svc:latest
+    build: 
+      context: .
+      dockerfile: src/IdentityService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=Admin;Database=Microservices_GSteam_Users
+    depends_on:
+      - postgres
+    ports:
+      - 5001:80
+  gateway-svc:
+    image: mymicroservice/gateway-svc:latest
+    build: 
+      context: .
+      dockerfile: src/GatewayService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - 6001:80
+  game-svc:
+    image: mymicroservice/game-svc:latest
+    build: 
+      context: .
+      dockerfile: src/GameService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_URLS=http://+:9999
+      - RabbitMq__Host=rabbitmq
+      - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=Admin;Database=Microservices_GSteam
+      - AuthorirtyServiceUrl=http://identity-svc
+      - Kestrel__Endpoints__Grpc__Protocols=Http2
+      - Kestrel__Endpoints__Grpc__Url=http://+:9999
+      - Kestrel__Endpoints__WebApi__Protocols=Http1
+      - Kestrel__Endpoints__WebApi__Url=Http://+:80
+    ports:
+      - 8003:80
+      - 9999:9999
+    depends_on:
+      - postgres
+      - rabbitmq
+  search-svc:
+    image: mymicroservice/search-svc:latest
+    build: 
+      context: .
+      dockerfile: src/SearchService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RabbitMq__Host=rabbitmq
+      - ConnectionStrings__MongoDbConnection=mongodb://root:mongopw@mongodb
+    ports:
+      - 8005:80
+    depends_on:
+      - mongodb
+      - rabbitmq
 networks:
   es-net:
     driver: bridge

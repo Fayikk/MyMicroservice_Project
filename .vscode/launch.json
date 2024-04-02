@@ -6,6 +6,8 @@
     "configurations": [
 
 
+
+
     
 
 
@@ -19,9 +21,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/BasketService/bin/Debug/net7.0/BasketService.dll",
+            "program": "${workspaceFolder}/src/IdentityService/bin/Debug/net7.0/IdentityService.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/BasketService",
+            "cwd": "${workspaceFolder}/src/IdentityService",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {
