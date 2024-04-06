@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GameService.Data.Migrations
 {
     [DbContext(typeof(GameDatabaseContext))]
-    [Migration("20240331141309_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240405210644_AddedMyGameEntity")]
+    partial class AddedMyGameEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,6 +108,26 @@ namespace GameService.Data.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("GameImages");
+                });
+
+            modelBuilder.Entity("GameService.Entities.MyGame", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("GameId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MyGames");
                 });
 
             modelBuilder.Entity("MassTransit.EntityFrameworkCoreIntegration.InboxState", b =>

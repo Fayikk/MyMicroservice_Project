@@ -22,8 +22,11 @@ public class DiscountRepository : IDiscountRepository
 
     public async Task<bool> CreateDiscount(DiscountModel model)
     {
-        if (model != null)
+        try
         {
+              if (model != null)
+        {
+            Console.WriteLine("trigger inner discount ----> "+ model.UserId);
             var game = _grpcClient.GetGame(model.GameId,UserId);
             if (!string.IsNullOrEmpty(game.GameName))
             {
@@ -43,5 +46,12 @@ public class DiscountRepository : IDiscountRepository
             }
         }
         return false;
+        }
+        catch (System.Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw ex;
+        }
+      
     }
 }

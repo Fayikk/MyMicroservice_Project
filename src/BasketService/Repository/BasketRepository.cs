@@ -118,9 +118,24 @@ public class BasketRepository : IBasketRepository
             responseModel.isSuccess = true;
             foreach (var item in checkouts)
             {
-            await _publishEndpoint.Publish(_mapper.Map<CheckoutBasketModel>(item));
+
+                try
+                {
+                        await _publishEndpoint.Publish(_mapper.Map<CheckoutBasketModel>(item));
+
+                }
+                catch (System.Exception ex)
+                {
+
+
+                    throw ex;
+                }
+
                 
             }
+
+            await _db.KeyDeleteAsync(UserId);
+
 
             return responseModel;
         }

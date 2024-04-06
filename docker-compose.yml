@@ -66,6 +66,9 @@ services:
     restart: always
     ports:
       - "1433:1433"
+    volumes:
+      - mssql_volume_data:/var/opt/mssql
+
   identity-svc:
     image: mymicroservice/identity-svc:latest
     build: 
@@ -79,6 +82,23 @@ services:
       - postgres
     ports:
       - 5001:80
+  order-svc:
+    image: mymicroservice/order-svc:latest
+    build: 
+      context: .
+      dockerfile: src/OrderService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - AuthorirtyServiceUrl=http://identity-svc
+      - ConnectionStrings__DefaultConnection=Server=mssql,1433;Database=MyMicroservice_OrderDb;User Id=sa;Password=Pass123$;TrustServerCertificate=true
+      - RabbitMq__Host=rabbitmq
+      - GrpcGame=http://game-svc:9999
+    depends_on:
+      - mssql
+      - rabbitmq
+    ports:
+      - 8004:80
   gateway-svc:
     image: mymicroservice/gateway-svc:latest
     build: 
@@ -111,6 +131,45 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+  discount-svc:
+    image: mymicroservice/discount-svc:latest
+    build: 
+      context: .
+      dockerfile: src/DiscountService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_URLS=http://+:8888
+      - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=Admin;Database=Microservices_GSteam_Discount
+      - AuthorirtyServiceUrl=http://identity-svc
+      - GrpcGame=http://game-svc:9999
+      - Kestrel__Endpoints__Grpc__Protocols=Http2
+      - Kestrel__Endpoints__Grpc__Url=http://+:8888
+      - Kestrel__Endpoints__WebApi__Protocols=Http1
+      - Kestrel__Endpoints__WebApi__Url=Http://+:80
+    ports:
+      - 8000:80
+      - 8888:8888
+    depends_on:
+      - postgres
+  basket-svc:
+    image: mymicroservice/basket-svc:latest
+    build: 
+      context: .
+      dockerfile: src/BasketService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RedisDatabase=redis
+      - RabbitMq__Host=rabbitmq
+      - AuthorirtyServiceUrl=http://identity-svc
+      - GrpcDiscount=http://discount-svc:8888
+    ports:
+      - 8001:80
+    depends_on:
+      - postgres
+      - rabbitmq
+      - redis
   search-svc:
     image: mymicroservice/search-svc:latest
     build: 
@@ -126,6 +185,22 @@ services:
     depends_on:
       - mongodb
       - rabbitmq
+  filter-svc:
+    image: mymicroservice/filter-svc:latest
+    build: 
+      context: .
+      dockerfile: src/FilterService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RabbitMq__Host=rabbitmq
+      - Elastic__Url=http://elasticsearch:9200
+      - indexName=filter_game
+    ports:
+      - 8002:80
+    depends_on:
+      - elasticsearch
+      - rabbitmq
 networks:
   es-net:
     driver: bridge
@@ -135,4 +210,4 @@ volumes:
   elasticsearch-data:
   kibana-data:
   redis_volume_data:
-
+  mssql_volume_data:

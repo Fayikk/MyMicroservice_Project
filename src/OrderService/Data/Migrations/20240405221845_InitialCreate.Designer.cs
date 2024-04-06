@@ -12,7 +12,7 @@ using OrderService.Data;
 namespace OrderService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240327214346_InitialCreate")]
+    [Migration("20240405221845_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -44,6 +44,9 @@ namespace OrderService.Data.Migrations
 
                     b.Property<string>("GameName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");

@@ -69,4 +69,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapGrpcService<GrpcGameService>();
+app.MapGrpcService<GrpcMyGameService>();
 app.Run();
