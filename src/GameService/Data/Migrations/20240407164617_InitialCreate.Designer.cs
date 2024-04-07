@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GameService.Data.Migrations
 {
     [DbContext(typeof(GameDatabaseContext))]
-    [Migration("20240405210644_AddedMyGameEntity")]
-    partial class AddedMyGameEntity
+    [Migration("20240407164617_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

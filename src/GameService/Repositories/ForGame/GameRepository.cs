@@ -73,7 +73,7 @@ public class GameRepository : IGameRepository
 
     public async Task<BaseResponseModel> GetGamesByCategory(Guid categoryId)
     {
-       List<Game> games = await _context.Games.Where(x=>x.CategoryId == categoryId).ToListAsync();
+       List<Game> games = await _context.Games.Include(x=>x.GameImages).Where(x=>x.CategoryId == categoryId).ToListAsync();
        if (games is not null)
        {
             _responseModel.Data = games;

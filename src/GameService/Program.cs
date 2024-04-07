@@ -4,10 +4,12 @@ using GameService.Data;
 using GameService.GameRepository;
 using GameService.Repositories;
 using GameService.Repositories.ForCategory;
+using GameService.Repositories.ForGameImage;
 using GameService.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,6 +24,7 @@ builder.Services.AddScoped(typeof(BaseResponseModel));
 builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 builder.Services.AddScoped<IGameRepository,GameRepository>();
 builder.Services.AddScoped<IFileService,FileService>();
+builder.Services.AddScoped<IGameImageRepository,GameImageRepository>(); 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
@@ -70,4 +73,8 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapGrpcService<GrpcGameService>();
 app.MapGrpcService<GrpcMyGameService>();
+// app.UseStaticFiles(new StaticFileOptions{
+//     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"Uploads")),
+//     RequestPath = "/Uploads"
+// });
 app.Run();

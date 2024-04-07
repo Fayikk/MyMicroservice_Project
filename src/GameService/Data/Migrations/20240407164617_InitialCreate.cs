@@ -50,6 +50,20 @@ namespace GameService.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MyGames",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    GameId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MyGames", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OutboxMessage",
                 columns: table => new
                 {
@@ -194,6 +208,9 @@ namespace GameService.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "InboxState");
+
+            migrationBuilder.DropTable(
+                name: "MyGames");
 
             migrationBuilder.DropTable(
                 name: "OutboxMessage");

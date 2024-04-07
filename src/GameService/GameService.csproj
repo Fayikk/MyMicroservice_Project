@@ -33,5 +33,4 @@
     <Protobuf Include="protos/games.proto" GrpcServices="Server" />
     <Protobuf Include="protos/mygames.proto" GrpcServices="Server" />
   </ItemGroup>
-
 </Project>

@@ -21,12 +21,6 @@ public class FileService : IFileService
         cloudinary = new Cloudinary(account);
         cloudinary.Api.Client.Timeout = TimeSpan.FromMinutes(30);
     }
-
-    public Task UploadImage()
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<string> UploadVideo(IFormFile File)
     {
         var uploadResult = new VideoUploadResult();
@@ -45,5 +39,25 @@ public class FileService : IFileService
         }
         return "";
         
+    }
+
+    public async Task<string> UploadImage(IFormFile file)
+    {
+          var uploadResult = new ImageUploadResult();
+        if (file.Length > 0)
+        {
+            using var stream = file.OpenReadStream();
+            var uploadParams = new ImageUploadParams
+            {
+                File = new FileDescription(file.FileName,stream),
+                Folder = "g-steam_microservices"
+            };
+
+            uploadResult = await cloudinary.UploadAsync(uploadParams);
+            string imageUrl = cloudinary.Api.UrlImgUp.BuildUrl(uploadResult.PublicId);
+            // string imageUrl = cloudinary.Api.UrlVideoUp.BuildUrl(uploadResult.PublicId);
+            return imageUrl;
+        }
+        return "";
     }
 }

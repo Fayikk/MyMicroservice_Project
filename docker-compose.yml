@@ -68,7 +68,6 @@ services:
       - "1433:1433"
     volumes:
       - mssql_volume_data:/var/opt/mssql
-
   identity-svc:
     image: mymicroservice/identity-svc:latest
     build: 

@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using GameService.Base;
 
 namespace GameService.Entities;
@@ -6,6 +7,8 @@ namespace GameService.Entities;
 public class GameImage : BaseModel
 {
     public string ImageUrl { get; set; }
-    public Guid GameId { get; set; }    
+    public Guid GameId { get; set; }   
+    [JsonIgnore ]
+
     public Game Game { get; set; }
 }

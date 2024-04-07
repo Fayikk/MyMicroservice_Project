@@ -14,7 +14,7 @@ public class SearchController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<GameItem>>> SearchItems([FromQuery]SearchParams searchParams)
+    public async Task<ActionResult<List<GameItem>>> SearchItems(SearchParams searchParams)
     {
         var query = DB.PagedSearch<GameItem,GameItem>();
         if (!string.IsNullOrEmpty(searchParams.searchWord))

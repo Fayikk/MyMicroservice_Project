@@ -11,10 +11,10 @@ export default function RootLayout({
   console.log("trigger server")
   return (
     <html lang="en">
-      <body >
+      <body className="bg-orange-100" >
       <NavigationBar></NavigationBar>
         
-        <main className="container mx-auto px-5" >
+        <main className="container mx-auto px"  >
         {children}
         </main>
         </body>

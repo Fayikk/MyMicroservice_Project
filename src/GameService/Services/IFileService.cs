@@ -6,5 +6,5 @@ namespace GameService.Services;
 public interface IFileService
 {
     Task<string> UploadVideo(IFormFile File);
-    Task UploadImage();
+    Task<string> UploadImage(IFormFile File);
 }
