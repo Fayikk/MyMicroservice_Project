@@ -8,7 +8,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  console.log("trigger server")
   return (
     <html lang="en">
       <body className="bg-orange-100" >

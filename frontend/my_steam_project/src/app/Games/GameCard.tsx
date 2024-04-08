@@ -8,7 +8,6 @@ type Props = {
 
 
 export default function GameCard({game}:Props) {
-    console.log(game.gameImages[0].imageUrl) 
   return (
     <Card className="py-4 px-4 border border-gray-600 rounded-s-lg bg-slate-600">
     <CardHeader className="pb-0 pt-2 px-4 flex-col items-center">

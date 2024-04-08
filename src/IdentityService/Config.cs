@@ -31,5 +31,18 @@ public static class Config
                 AllowedScopes = { "openid","profile","microserviceApp" }
 
             },
+              new Client
+            {
+                ClientId = "frontend",
+                ClientName = "frontend",
+                AllowedGrantTypes = GrantTypes.CodeAndClientCredentials ,
+                RequirePkce = false,
+                ClientSecrets = new[] { new Secret("BigSecret".Sha256()) },
+                RedirectUris={"http://localhost:3000/api/auth/callback/id-server"},
+                AllowOfflineAccess = true,
+                AllowedScopes = { "openid","profile","microserviceApp" },
+                AccessTokenLifetime = 3600*24*30,
+                AlwaysIncludeUserClaimsInIdToken = true,
+            },
         };
 }
