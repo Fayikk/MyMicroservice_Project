@@ -127,4 +127,18 @@ public class GameRepository : IGameRepository
         _responseModel.IsSuccess = false;
         return _responseModel;
     }
+
+    public async Task<BaseResponseModel> GetGameById(Guid gameId)
+    {
+        var result = await _context.Games.Include(x=>x.GameImages).FirstOrDefaultAsync(x=>x.Id == gameId);
+        if (result is not null)
+        {
+            _responseModel.Data = result;
+            _responseModel.IsSuccess = true;
+            return _responseModel;
+        }
+            _responseModel.IsSuccess = false;
+            return _responseModel;
+
+    }
 }

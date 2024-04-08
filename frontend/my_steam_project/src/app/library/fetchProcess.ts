@@ -6,11 +6,13 @@ const baseUrl = "http://localhost:6001/";
 
 async function get(url:string)
 {
+    var result = await getHeaders()
+    console.log("resılt")
+    console.log(result)
     const requestSettings = {
         method : 'GET',
-        header : await  getHeaders()
+        headers : await getHeaders()
     }
-
     const response = await fetch(baseUrl+url,requestSettings);
     return await throwResponse(response);
 }
@@ -28,26 +30,25 @@ async function post(url:string,body:{})
 }
 
 
-async function put(url:string,body:{},routeParams:string)
+async function put(url:string,body:{})
 {
     const requestOptions = {
         method:'PUT',
         headers:await getHeaders(),
         body:JSON.stringify(body)
     }
-    const response = await fetch(baseUrl+url+"/"+routeParams,requestOptions);
+    const response = await fetch(baseUrl+url,requestOptions);
     return await throwResponse(response);
 }
 
-async function del(url:string,routeParams:string)
+async function del(url:string)
 {
     const requestOptions = {
         method:'DELETE',
         headers:await getHeaders(),
 
-
     }
-    const response = await fetch(baseUrl+url+"/"+routeParams,requestOptions);
+    const response = await fetch(baseUrl+url,requestOptions);
     return await throwResponse(response);
 }
 
@@ -91,7 +92,7 @@ async function throwResponse(response:Response)
     }
 
 }
-export const fetchWrapper = {
+export const fetchProccess = {
     get,
     post,
     del,

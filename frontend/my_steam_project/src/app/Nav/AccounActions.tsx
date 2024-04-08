@@ -32,6 +32,6 @@ export default function AccounActions({user}:Props) {
       </Dropdown.Item>
     </Dropdown>
    
-  </div>
+  </div> 
   )
 }

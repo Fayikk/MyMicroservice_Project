@@ -12,4 +12,6 @@ public interface IGameRepository
     Task<BaseResponseModel> RemoveGame(Guid gameId);
     Task<BaseResponseModel> GetAllGames();
     Task<BaseResponseModel> GetGamesByCategory(Guid categoryId);
+
+    Task<BaseResponseModel> GetGameById(Guid gameId);
 }

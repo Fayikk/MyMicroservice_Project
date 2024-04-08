@@ -1,4 +1,3 @@
-
 using GameService.DTOs;
 using GameService.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -54,5 +53,11 @@ public class GameController : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet("game/{gameId}")]
+    public async Task<ActionResult> GetGameById([FromRoute] Guid gameId)
+    {
+        var response = await _gameRepository.GetGameById(gameId);
+        return Ok(response);
+    }
 
 }

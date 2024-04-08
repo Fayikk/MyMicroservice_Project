@@ -24,7 +24,7 @@ public class BasketController : ControllerBase
     }
 
     [HttpGet("BasketItems")]
-
+    [Authorize] 
     public async Task<ActionResult> GetListItems()
     {
         var response = await _basketRepository.GetBasketItems();
