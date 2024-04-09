@@ -11,3 +11,11 @@ export async function getBasketItems()
 {
     return await fetchProccess.get('basket/BasketItems');
 }
+
+
+export async function checkoutBasketItem()
+{
+    return await fetchProccess.postEmpty('basket/Checkout');
+}
+
+

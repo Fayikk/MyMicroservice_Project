@@ -59,8 +59,4 @@ app.Lifetime.ApplicationStarted.Register(async () => {
 });
 
 
-
-
-
-
 app.Run();

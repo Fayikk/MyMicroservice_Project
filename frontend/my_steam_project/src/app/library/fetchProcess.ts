@@ -7,8 +7,6 @@ const baseUrl = "http://localhost:6001/";
 async function get(url:string)
 {
     var result = await getHeaders()
-    console.log("resılt")
-    console.log(result)
     const requestSettings = {
         method : 'GET',
         headers : await getHeaders()
@@ -24,6 +22,17 @@ async function post(url:string,body:{})
         method:'POST',
         headers:await getHeaders(),
         body:JSON.stringify(body)
+    }
+    const response = await fetch(baseUrl+url,requestOptions);
+    return await throwResponse(response);
+}
+
+
+async function postEmpty(url:string)
+{
+    const requestOptions = {
+        method:'POST',
+        headers:await getHeaders(),
     }
     const response = await fetch(baseUrl+url,requestOptions);
     return await throwResponse(response);
@@ -96,5 +105,6 @@ export const fetchProccess = {
     get,
     post,
     del,
-    put
+    put,
+    postEmpty
 }

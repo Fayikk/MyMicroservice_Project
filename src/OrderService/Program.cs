@@ -1,8 +1,10 @@
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using OrderService.Base;
 using OrderService.Consumer;
 using OrderService.Data;
+using OrderService.Repository;
 using OrderService.Services;
 using OrderService.Services.GrpcFolder;
 
@@ -15,7 +17,9 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IPaymentService,PaymentService>();
+builder.Services.AddScoped<IOrderRepository,OrderRepository>(); 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped(typeof(BaseResponse));
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();

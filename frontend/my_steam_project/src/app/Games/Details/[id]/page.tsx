@@ -11,9 +11,7 @@ export default async function page({params}:{params:{id:string}}) {
     const {data,isLoading} = await getDetailById(params.id)
 
     
-    console.log("trigger")
     if (isLoading) {
-        console.log(data.gameName)
     }
 
 

@@ -3,6 +3,7 @@ using Iyzipay;
 using Iyzipay.Model;
 using Iyzipay.Request;
 using Microsoft.EntityFrameworkCore;
+using OrderService.Base;
 using OrderService.Data;
 using OrderService.Entities;
 using OrderService.Models;
@@ -17,13 +18,16 @@ namespace OrderService.Services
         private readonly GrpcMyGameClient _myGameClient;
         public PaymentService(IConfiguration _configuration,GrpcMyGameClient myGameClient,ApplicationDbContext context,IHttpContextAccessor contextAccessor)
         {
+              
               UserId = contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
               _context = context;
               _myGameClient = myGameClient;
         }
 
-        public async Task<bool> PayMyGames(PaymentForm model)
+        public async Task<BaseResponse> PayMyGames(PaymentForm model)
         {
+            
+                BaseResponse baseResponse = new BaseResponse();
 
                var result = await GetOrderByUserId(UserId);
 
@@ -122,14 +126,18 @@ namespace OrderService.Services
                         var checkResult = _myGameClient.SaveMyGame(UserId,item.GameId.ToString());
                         if (!checkResult || !isPaid)
                         {
-                            return false;
+                            baseResponse.IsSuccess = false;
+                            return baseResponse;
                             
                         }
                     }
-                    return true;
+                      baseResponse.IsSuccess = true;
+                            return baseResponse;
                     
                 }
-                return false;
+                baseResponse.Message = payment.ErrorMessage;
+                baseResponse.IsSuccess = false;
+                return baseResponse;
         }
 
         private async Task<List<Order>> GetOrderByUserId(string userId)
