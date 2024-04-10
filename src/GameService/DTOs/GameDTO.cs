@@ -7,7 +7,8 @@ public class GameDTO
     public string GameAuthor { get; set; }
 
     public decimal Price { get; set; }  
-    public IFormFile File { get; set; }    
+    public IFormFile VideoFile { get; set; }    
+    public IFormFile GameFile { get; set; }    
     public string GameDescription { get; set; } 
     public string MinimumSystemRequirement { get; set; }    
     public string RecommendedSystemRequirement { get; set; }    

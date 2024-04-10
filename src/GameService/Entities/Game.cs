@@ -12,6 +12,7 @@ public class Game : BaseModel
 
     public decimal Price { get; set; }  
     public string VideoUrl { get; set; }    
+    public string GameInfo { get; set; }    
 
     public string GameDescription { get; set; } 
     public string MinimumSystemRequirement { get; set; }    

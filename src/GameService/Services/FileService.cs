@@ -1,4 +1,5 @@
 
+using System.Net;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using GameService.DTOs;
@@ -59,5 +60,30 @@ public class FileService : IFileService
             return imageUrl;
         }
         return "";
+    }
+
+    public async Task<string> UploadZip(IFormFile file)
+    {
+        var uploadResult = new RawUploadResult();
+        if (file.Length > 0)
+        {
+            using var stream = file.OpenReadStream();
+            var uploadParams = new RawUploadParams
+            {
+                File = new FileDescription(file.FileName,stream),
+                Folder = "g-steam_microservices"
+            };
+
+            uploadResult = await cloudinary.UploadAsync(uploadParams);
+            
+            return uploadResult.SecureUri.ToString();
+        }
+        return "";
+    }
+
+    public async Task<string> DownloadGame(string publicId)
+    {   
+        var getUrl = cloudinary.Api.UrlImgUp.Transform(new Transformation().Quality("auto").FetchFormat("auto")).BuildUrl(publicId);
+        return getUrl;
     }
 }

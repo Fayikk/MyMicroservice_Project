@@ -1,5 +1,6 @@
 using GameService.DTOs;
 using GameService.Repositories;
+using GameService.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,14 +11,16 @@ namespace GameService.Controllers;
 public class GameController : ControllerBase
 {
     private IGameRepository _gameRepository;
-    public GameController(IGameRepository gameRepository)
+    private readonly IFileService _fileService;
+    public GameController(IGameRepository gameRepository,IFileService fileService)
     {
+        _fileService = fileService;
         _gameRepository = gameRepository;
     }
 
 
     [HttpPost]
-    [Authorize]
+    // [Authorize]
     public async Task<ActionResult> CreateGame([FromForm]GameDTO game)
     {
         var response = await _gameRepository.CreateGame(game);
@@ -39,6 +42,15 @@ public class GameController : ControllerBase
         return Ok(response);
     }
 
+
+    [HttpPost("Download")]
+    public async Task<ActionResult> DownloadGame(string fileUrl)
+    {
+        var response = await _fileService.DownloadGame(fileUrl);
+        return Ok(response);
+    }
+
+
     [HttpGet("{categoryId}")]
     public async Task<ActionResult> GetGamesByCategoryId([FromRoute]Guid categoryId)
     {
@@ -58,6 +70,14 @@ public class GameController : ControllerBase
     {
         var response = await _gameRepository.GetGameById(gameId);
         return Ok(response);
+    }
+
+    [HttpGet("mygames")]
+    [Authorize]
+    public async Task<ActionResult> GetMyGames()
+    {
+        var response = await _gameRepository.GetMyGames();
+        return Ok(response);    
     }
 
 }

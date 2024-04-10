@@ -1,4 +1,5 @@
 
+import { useStore } from "./HooksManagement/basketItemState";
 import NavigationBar from "./Nav/NavigationBar";
 import "./globals.css"
 
@@ -7,6 +8,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
 
   return (
     <html lang="en">

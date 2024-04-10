@@ -1,9 +1,10 @@
 'use server'
 import { fetchProccess } from "@/app/library/fetchProcess";
+import { revalidatePath } from "next/cache";
 
 export async function addBasketGame(data:any)
 {
-    return await fetchProccess.post('basket',data);
+    const response = await fetchProccess.post('basket',data);
 }
 
 

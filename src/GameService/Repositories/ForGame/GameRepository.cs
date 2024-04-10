@@ -34,11 +34,13 @@ public class GameRepository : IGameRepository
 
     public async Task<BaseResponseModel> CreateGame(GameDTO game)
     {
-       if (game.File.Length > 0)
+       if (game.VideoFile.Length > 0 && game.GameFile.Length > 0)
        {
-            string videoUrl = await _fileService.UploadVideo(game.File);
+            string videoUrl = await _fileService.UploadVideo(game.VideoFile);
+            string gameUrl = await _fileService.UploadZip(game.GameFile);
             var objDTO = _mapper.Map<Game>(game);
             objDTO.VideoUrl = videoUrl;
+            objDTO.GameInfo = gameUrl;
             objDTO.UserId = UserId;
             await _context.Games.AddAsync(objDTO);
                 await _publishEndpoint.Publish(_mapper.Map<GameCreated>(objDTO));
@@ -139,6 +141,27 @@ public class GameRepository : IGameRepository
         }
             _responseModel.IsSuccess = false;
             return _responseModel;
+
+    }
+
+    public async Task<BaseResponseModel> GetMyGames()
+    {
+        List<MyGame> result = await _context.MyGames.Where(x=>x.UserId == Guid.Parse(UserId)).ToListAsync();
+        List<Game> games  = new List<Game>();
+        foreach (var item in result)
+        {
+            
+            var response = await _context.Games.FirstOrDefaultAsync(x=>x.Id == item.GameId);
+            if (response is not null)
+            {
+                games.Add(response);
+            }
+        }
+
+        _responseModel.IsSuccess = true;
+        _responseModel.Data = games;
+        return _responseModel;  
+
 
     }
 }

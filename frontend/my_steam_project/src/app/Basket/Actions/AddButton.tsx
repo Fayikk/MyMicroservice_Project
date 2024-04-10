@@ -1,16 +1,14 @@
 'use client'
-import { addBasketGame } from '@/app/api/basket/basketActions'
+import { addBasketGame, getBasketItems } from '@/app/api/basket/basketActions'
 import { Button } from '@nextui-org/react'
 import React from 'react'
+import Cart from '../Details/page'
+import { useStore } from '@/app/HooksManagement/basketItemState'
 
 export default function AddButton(data:any) {
 
-    // public Guid GameId { get; set; }
-    // public string GameName { get; set; }
-    //  public string GameAuthor { get; set; }
- 
-    //  public decimal Price { get; set; }  
-    //  public string GameDescription { get; set; } 
+  const updateItemsCount = useStore((state:any) => state.updateBasketCount);
+
     const addItem = async () => {
         const gameItem = {
             gameId:data.data.id,
@@ -21,7 +19,9 @@ export default function AddButton(data:any) {
         }
 
 
-      var response = await addBasketGame(gameItem);
+        await addBasketGame(gameItem);
+        var response = await getBasketItems();
+        updateItemsCount(response.data.length)
     }
 
 

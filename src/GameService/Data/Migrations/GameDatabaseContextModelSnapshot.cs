@@ -60,6 +60,9 @@ namespace GameService.Data.Migrations
                     b.Property<string>("GameDescription")
                         .HasColumnType("text");
 
+                    b.Property<string>("GameInfo")
+                        .HasColumnType("text");
+
                     b.Property<string>("GameName")
                         .HasColumnType("text");
 

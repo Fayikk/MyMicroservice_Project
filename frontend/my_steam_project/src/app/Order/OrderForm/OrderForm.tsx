@@ -14,14 +14,11 @@ export default function OrderForm({totalPrice,orders}:any) {
         cvc:""
     });
 
-    console.log(payment.expireMonth)
 
 
     async function onSubmit(e:any)
     {
             e.preventDefault();
-            console.log("trigger on submit")
-            console.log(payment.cardHolderName)
             const paymentModel = {
                 cardHolderName:payment.cardHolderName,
                 cardNumber:payment.cardNumber,
@@ -33,8 +30,6 @@ export default function OrderForm({totalPrice,orders}:any) {
         if (response.isSuccess) {
             router.push('/');
         }
-        console.log(response);
-        console.log("trigger response payment model")
     }
 
   return (

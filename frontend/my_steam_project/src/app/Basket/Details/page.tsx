@@ -1,3 +1,4 @@
+'use server'
 import { getBasketItems } from '@/app/api/basket/basketActions';
 import { Button } from 'flowbite-react';
 import React from 'react'

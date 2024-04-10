@@ -14,4 +14,6 @@ public interface IGameRepository
     Task<BaseResponseModel> GetGamesByCategory(Guid categoryId);
 
     Task<BaseResponseModel> GetGameById(Guid gameId);
+
+    Task<BaseResponseModel> GetMyGames();
 }
