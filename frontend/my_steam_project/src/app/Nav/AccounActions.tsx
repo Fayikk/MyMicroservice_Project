@@ -5,14 +5,14 @@ import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
 
-type Props = {
-  user:Partial<User>
-}
+// type Props = {
+//   user:Partial<User>
+// }
 
 
 
 
-export default function AccounActions({user}:Props) {
+export default function AccounActions({user}:any) {
 
   return (
     <div className="flex items-center gap-4">
@@ -25,7 +25,9 @@ export default function AccounActions({user}:Props) {
             </h1>
           </Link>
       </Dropdown.Item>
-      <Dropdown.Item>
+      {
+        user.role === "SuperAdmin" && (
+          <Dropdown.Item>
           <Link href='User/CreateGame' >
           <h1 style={{color:"black"}} >
             Create Game
@@ -33,6 +35,9 @@ export default function AccounActions({user}:Props) {
             </h1>
           </Link>
       </Dropdown.Item>
+        )
+      }
+    
       <Dropdown.Item>
         <Link href='/MyAccount' >
         <h1 style={{color:"black"}} >

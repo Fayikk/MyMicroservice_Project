@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         
 
 
@@ -19,9 +20,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/GameService/bin/Debug/net7.0/GameService.dll",
+            "program": "${workspaceFolder}/src/IdentityService/bin/Debug/net7.0/IdentityService.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/GameService",
+            "cwd": "${workspaceFolder}/src/IdentityService",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {

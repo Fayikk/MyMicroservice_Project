@@ -1,8 +1,22 @@
 'use client'
 import { CreateGame } from '@/app/api/game/gameActions';
-import React, { useState } from 'react';
+import { getCurrentUser } from '@/app/authActions/authNext';
+import React, { useEffect, useState } from 'react';
 import {toast} from 'react-hot-toast'
-export default function Page() {
+function Page() {
+
+  useEffect(()=>{
+    const getUserAccessible = async () => {
+         const user = await getCurrentUser();
+        if (user?.role !== "SuperAdmin") {
+            window.location.replace("/");
+          
+        }
+    }
+    getUserAccessible()
+
+  },[])
+
 
     const [game,setGame] = useState({
         gameName:"",
@@ -193,3 +207,5 @@ export default function Page() {
     </>
   );
 }
+
+export default Page

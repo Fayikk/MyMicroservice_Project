@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Azure;
 using IdentityModel;
 using IdentityService.Data;
 using IdentityService.Models;
@@ -18,7 +19,11 @@ public class SeedData
             context.Database.Migrate();
 
             var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+
             var alice = userMgr.FindByNameAsync("alice").Result;
+            EnsureRoles(roleMgr).Wait();
             if (alice == null)
             {
                 alice = new ApplicationUser
@@ -38,9 +43,13 @@ public class SeedData
                             new Claim(JwtClaimTypes.GivenName, "Alice"),
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
                         }).Result;
+
                 if (!result.Succeeded)
                 {
                     throw new Exception(result.Errors.First().Description);
+                }
+                else{
+                    userMgr.AddToRoleAsync(alice,"SuperAdmin");
                 }
                 Log.Debug("alice created");
             }
@@ -73,6 +82,9 @@ public class SeedData
                 {
                     throw new Exception(result.Errors.First().Description);
                 }
+                else{
+                    userMgr.AddToRoleAsync(bob,"Admin");
+                }
                 Log.Debug("bob created");
             }
             else
@@ -81,4 +93,19 @@ public class SeedData
             }
         }
     }
+
+
+    private static async Task EnsureRoles(RoleManager<IdentityRole> roleMgr)
+    {
+        string[] roleNames = {"Admin","SuperAdmin","NormalUser"};
+        foreach (var item in roleNames)
+        {
+            var roleExist = await roleMgr.RoleExistsAsync(item);
+            if (!roleExist)
+            {
+                await roleMgr.CreateAsync(new IdentityRole(item));
+            }
+        }
+    }
+    
 }

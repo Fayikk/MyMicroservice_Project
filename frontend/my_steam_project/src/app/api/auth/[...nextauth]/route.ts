@@ -22,6 +22,7 @@ export const authenticationSettings:NextAuthOptions = {
                
                 if (profile) {
                     token.username = profile.username
+                    token.role = profile.role
                 }
 
                 if (account) {
@@ -32,6 +33,7 @@ export const authenticationSettings:NextAuthOptions = {
         async session({session,token}){
             if (token) {
                 session.user.username = token.username
+                session.user.role = token.role
             }
             return session;
         },

@@ -1,3 +1,4 @@
+'use server'
 import { getServerSession } from "next-auth";
 import { authenticationSettings } from "../api/auth/[...nextauth]/route";
 import { cookies, headers } from "next/headers";
@@ -14,7 +15,8 @@ export async function getCurrentUser()
     if (!session) {
         return null;
     }
-
+    console.log("session.user")
+    console.log(session.user)
     return session.user;
 }
 

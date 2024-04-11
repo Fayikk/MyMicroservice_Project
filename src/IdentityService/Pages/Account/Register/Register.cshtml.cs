@@ -49,6 +49,7 @@ public class Register : PageModel
                 EmailConfirmed = true
             };
             var result = await _userManager.CreateAsync(user,Input.Password);
+            await _userManager.AddToRoleAsync(user,"NormalUser");
 
             if (result.Succeeded)
             {
