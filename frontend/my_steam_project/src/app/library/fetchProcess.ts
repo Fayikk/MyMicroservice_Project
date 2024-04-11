@@ -27,6 +27,20 @@ async function post(url:string,body:{})
     return await throwResponse(response);
 }
 
+async function postForm(url:string,body:any)
+{
+    const requestOptions = {
+        method:'POST',
+        headers:await getHeadersForm(),
+        body:body
+    }
+    console.log(requestOptions.body)
+    const response = await fetch(baseUrl+url,requestOptions);
+    return await throwResponse(response);
+}
+
+
+
 
 async function postEmpty(url:string)
 {
@@ -61,6 +75,14 @@ async function del(url:string)
     return await throwResponse(response);
 }
 
+async function getHeadersForm(): Promise<Record<string, string>> {
+    const token = await getTokenWorkarround();
+    const headers: Record<string, string> = {};
+    if (token) {
+        headers.Authorization = 'Bearer ' + token.access_token;
+    }
+    return headers;
+}
 
 
 async function getHeaders()
@@ -106,5 +128,6 @@ export const fetchProccess = {
     post,
     del,
     put,
-    postEmpty
+    postEmpty,
+    postForm
 }

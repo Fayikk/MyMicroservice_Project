@@ -13,3 +13,11 @@ export async function FetchMyGames()
 {
     return await fetchProccess.get('game/mygames');
 }
+
+
+export async function CreateGame(data:any)
+{
+    return await fetchProccess.postForm("game",data);
+  
+}
+

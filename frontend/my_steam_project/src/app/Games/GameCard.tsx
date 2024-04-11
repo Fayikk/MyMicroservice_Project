@@ -21,7 +21,7 @@ export default function GameCard({game}:Props) {
       <Image
         alt="Card background"
         className="object-cover rounded-xl"
-        src={game.gameImages[0].imageUrl}
+        src={ game.gameImages.length > 0 ?  game.gameImages[0].imageUrl : `https://i.pinimg.com/originals/c5/ca/ae/c5caae987b65d9e39f6b174d1fd19fae.png`}
         width={270}
       />
        

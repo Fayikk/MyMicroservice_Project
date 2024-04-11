@@ -3,6 +3,7 @@ using GameService.Repositories;
 using GameService.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace GameService.Controllers;
 
@@ -20,11 +21,27 @@ public class GameController : ControllerBase
 
 
     [HttpPost]
-    // [Authorize]
+    [Authorize]
     public async Task<ActionResult> CreateGame([FromForm]GameDTO game)
     {
-        var response = await _gameRepository.CreateGame(game);
-        return Ok(response);
+        Console.WriteLine(game);
+        Console.WriteLine(game.GameName);
+        Console.WriteLine(game.GameDescription);
+        Console.WriteLine(game.GameAuthor);
+        Console.WriteLine(game.Price);
+        Console.WriteLine(game.GameFile);
+        Console.WriteLine(game.VideoFile);
+        if (ModelState.IsValid)
+        {
+            if (game.GameFile == null || game.VideoFile == null)    
+            {
+                return BadRequest("inner");
+            }
+            var response = await _gameRepository.CreateGame(game);
+            return Ok(response);   
+        }
+        return BadRequest("outer");
+
     }
 
     [HttpDelete("{gameId}")]

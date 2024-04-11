@@ -5,13 +5,12 @@ export default async function page() {
 
     var response = await FetchMyGames();
 
-    console.log(response);
 
 
     return (  
         <>
             {
-                response.data.map((mygame:any, key:any) => (
+               response.data && response.data.map((mygame:any, key:any) => (
         <ul className="bg-white shadow overflow-hidden sm:rounded-md max-w-sm mx-auto mt-16">
 
                     <li key={key} className='mb-6'>

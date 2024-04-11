@@ -15,7 +15,6 @@ async function GetData()
 async function GameList() {
 
     const data = await GetData();
-  console.log(data)
   return (
     <div className='grid grid-cols-3 gap-10'  >
        {

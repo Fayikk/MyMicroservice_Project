@@ -19,16 +19,31 @@ export default function AccounActions({user}:Props) {
     <Dropdown label={`Hello bros ${user.name}`} size="sm">
       <Dropdown.Item>
           <Link href='/MyGames' >
-              My Games
+            <h1 style={{color:"black"}} >
+            My Games
+
+            </h1>
+          </Link>
+      </Dropdown.Item>
+      <Dropdown.Item>
+          <Link href='User/CreateGame' >
+          <h1 style={{color:"black"}} >
+            Create Game
+
+            </h1>
           </Link>
       </Dropdown.Item>
       <Dropdown.Item>
         <Link href='/MyAccount' >
+        <h1 style={{color:"black"}} >
           My Account
+          </h1>
         </Link>
       </Dropdown.Item>
       <Dropdown.Item onClick={()=>signOut({callbackUrl:"/"})} >
+      <h1 style={{color:"black"}} >
         Sign Out
+        </h1>
       </Dropdown.Item>
     </Dropdown>
    
